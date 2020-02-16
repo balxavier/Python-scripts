@@ -1,3 +1,4 @@
+# Simple python script that download the bing daily site backgroud
 import os # import the os package
 
 drawer = 'ram:'
@@ -10,3 +11,4 @@ str4=str3.split('/th?id=OHR.')[1]
 str5=str4.split('_FR-FR')[0]
 str6=drawer + str5 + '.jpg'
 os.system('wget -O ' + str6 + ' http://www.bing.com' + str3 + '.jpg') # donwload the daily image
+os.remove(drawer + 'index.html') # delete the html file
