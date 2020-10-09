@@ -6,6 +6,12 @@ WPfile = 'WBWallpaper.jpg'
 WTfile = 'WBTitlebar.jpg'
 
 (drawer, file) = asl.FileRequest(title="Please select a Picture to set as Wallpaper", drawer='RAM:', filename="", pattern="#?")
+
+if drawer.endswith(':'):
+	drawer = drawer
+else:
+	drawer = drawer + '/'
+
 print('image en traitement ... ' + drawer+file)
 print('Preparing theme, please wait ...')
 
@@ -16,7 +22,7 @@ titlebar_height = 26
 screen_height = 1080
 screen_width = 1920
 
-image_original = Image.open(drawer + '/' + file)
+image_original = Image.open(drawer + file)
 image_obj_w, 	image_obj_h = image_original.size
 print(image_obj_w, 	image_obj_h)
 
