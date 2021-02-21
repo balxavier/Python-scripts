@@ -27,7 +27,7 @@ def urldomain(domain):
                 'www.dailymotion.com':'dailymotion',
                 'www.skaitv.gr':'skaitv',
                 'dlive.tv':'dlive',
-                'peertube.com:'peertube',
+                'peertube.com':'peertube',
                 'wasd.tv':'wasd',
                 'lbry.tv':'lbry',
              }
