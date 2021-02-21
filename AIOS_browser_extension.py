@@ -42,7 +42,7 @@ arexx.dorexx("NOTIFYA", "REGISTERAPP APP=PYTHONNOTIFY" + notifyarg1 + notifyarg2
 #Launch the correct script
 
 if website == 'other':
-  os.system('APPDIR:Mplayer -cache 8092" + url
+  os.system('APPDIR:Mplayer -cache 8092 " + url
 else:
   os.system('C:Python ' + website + '.py ' + '-shh -u " + url
   
