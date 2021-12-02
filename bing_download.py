@@ -1,4 +1,8 @@
-# Simple python script that download the bing daily site backgroud
+#!python
+# coding=utf-8
+# Simple script to download Bing's picture of the day background
+# v1.0
+
 import os, arexx # import the os and arexx packages
 
 drawer = 'ram:'
