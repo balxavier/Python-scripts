@@ -1,3 +1,8 @@
+#!python
+# coding=utf-8
+# AmigaOS Modern Theme configurator - User's own background 
+# v1.0
+
 import os, time # import the os package
 import asl
 from PIL import Image, ImageFilter
