@@ -1,3 +1,8 @@
+#!python
+# coding=utf-8
+# AmigaOS Modern Theme configurator - Bing's Picture of the day background 
+# v1.0
+
 import os, time # import the os package
 from PIL import Image, ImageFilter
 
