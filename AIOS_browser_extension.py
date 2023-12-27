@@ -1,9 +1,9 @@
 #!python
 # coding=utf-8
 # AIOStreams browser menu extension for AmigaOS
-# v1.0
+# v1.1
 
-import os, sys, myurlparse, arexx
+import os, sys, asl, myurlparse, arexx, AIOSsites, vqw
 
 AIOSpath = os.path.dirname(__file__)
 
@@ -18,24 +18,7 @@ domain = urlparse(url).netloc
 
 #Test the domain to determine the right script
 
-switcher = {
-	'www.twitch.tv': "twitch",
-	'm.twitch.tv': "twitch",
-	'www.youtube.com': "youtube",
-	'youtu.be': "youtube",
-	'www.youtube-nocookie.com': "youtube",
-	'm.youtube.com': "youtube",
-	'youtube.com': "youtube",
-	'vimeo.com': "vimeo",
-	'www.dailymotion.com': "dailymotion",
-	'www.skaitv.gr': "skaitv",
-	'dlive.tv': "dlive",
-	'peertube.com': "peertube",
-	'wasd.tv': "wasd",
-	'lbry.tv':"lbry"
-	}
-
-website = switcher.get(domain, "other")
+website = AIOSsites.switcher.get(domain, "other")
 
 #Notify the result
 
@@ -45,9 +28,47 @@ arexx.dorexx("NOTIFYA", 'NOTIFY APP=PYTHONNOTIFY ' + notifyarg)
 
 #Launch the correct script
 
+#Ask for quality
+if website == 'twitch':
+	vqualitylist = ' | '.join(str(n) for n in vqw.twitchVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.twitchVQW[response-1])
+elif website == 'youtube':
+	vqualitylist = ' | '.join(str(n) for n in vqw.ytVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.ytVQW[response-1])
+elif website == 'vimeo':
+	vqualitylist = ' | '.join(str(n) for n in vqw.vimeoVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.vimeoVQW[response-1])
+elif website == 'dailymotion':
+	vqualitylist = ' | '.join(str(n) for n in vqw.dailymotionVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.dailymotionVQW[response-1])
+elif website == 'skaitv':
+	vqualitylist = ' | '.join(str(n) for n in vqw.skaiVQW)
+#	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+#	vquality = str(vqw.skaiVQW[response-1])
+elif website == 'dlive':
+	vqualitylist = ' | '.join(str(n) for n in vqw.dliveVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.dliveVQW[response-1])
+elif website == 'peertube':
+	vqualitylist = ' | '.join(str(n) for n in vqw.peertubeVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.peertubeVQW[response-1])
+elif website == 'wasd':
+	vqualitylist = ' | '.join(str(n) for n in vqw.twitchVQW)
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", vqualitylist)
+	vquality = str(vqw.wasdVQW[response-1])
+else :
+	response = asl.MessageBox("Quality choice", "Please select a video quality: ", 'Default')
+
 if website == 'other':
 	os.system('APPDIR:Mplayer -cache 8092 ' + url)
-else:
+elif website == 'skaitv':
 	os.system('C:Python ' + AIOSpath + '/' + website + '.py ' + '-shh -u ' + url)
-  
+else:
+	os.system('C:Python ' + AIOSpath + '/' + website + '.py ' + '-shh -u ' + url + ' -q ' + vquality)
+
 arexx.dorexx("NOTIFYA", "UNREGISTERAPP APP=PYTHONNOTIFY")
